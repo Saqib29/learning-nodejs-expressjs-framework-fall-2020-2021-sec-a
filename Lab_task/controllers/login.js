@@ -24,7 +24,13 @@ router.post('/', (req, res)=>{
 
 	userModel.validate(user, function(status){
 		if(status){
-			res.redirect('/home', {name: 'Saqib', id: '123'});
+			userModel.getId(user.password, user.username, (result) => {
+				if(result[0].designaation == 'admin'){
+					res.render('/home/adminView', { name: user.username, id: result[0].id} );
+				} else {
+					res.render('/home/employeeView', { name: user.username, id: result[0].id});
+				}
+			});
 		}else{
 			res.redirect('/login');
 		}

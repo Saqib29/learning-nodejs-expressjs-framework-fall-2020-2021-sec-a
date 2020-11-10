@@ -2,9 +2,9 @@ const db = require('./db');
 
 module.exports= {
 	validate: function(user, callback){
-		var sql = `SELECT * FROM employee WHERE username = ${user.username} AND password = ${user.password}`;
+		var sql = `SELECT * FROM admin WHERE username = ${user.username} AND password = ${user.password}`;
 		db.getResults(sql, function(results){
-			if(results.length >0 ){
+			if(results.length > 0 ){
 				callback(true);
 			}else{
 				callback(false);
@@ -31,7 +31,7 @@ module.exports= {
 		});
 	},
 	insert: function(user, callback){
-		var sql = `INSERT INTO user (id, username, password, type) VALUES (${user.id}, ${user.username}, ${user.password}, ${user.type})`;
+		var sql = `INSERT INTO user (username, password, email, designation) VALUES (${user.username}, ${user.password}, ${user.email}, ${user.designation})`;
 		db.execute(sql, (result) => {
 			callback(result);
 		});

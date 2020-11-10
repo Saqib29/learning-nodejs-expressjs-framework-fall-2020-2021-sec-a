@@ -24,7 +24,7 @@ router.post('/create', (req, res)=>{
 	};
 
 	userModel.insert(user, (result) => {
-		res.send('Delete: '+result);
+		res.send('Insert: '+result);
 	});
 });
 
