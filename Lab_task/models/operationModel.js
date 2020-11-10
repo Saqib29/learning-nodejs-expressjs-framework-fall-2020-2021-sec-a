@@ -12,7 +12,7 @@ module.exports= {
 		});
 	},
 	getId: function(password, username, callback){
-		var sql = `SELECT * FROM user WHERE username = ${username} AND password = ${password}`;
+		var sql = `SELECT * FROM user WHERE username = '${username}' AND password = '${password}'`;
 		db.getResults(sql, function(result){
 			console.log(result);
 			callback(result);
