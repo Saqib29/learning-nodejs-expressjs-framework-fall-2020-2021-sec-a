@@ -23,9 +23,9 @@ app.use(exSession({secret: 'secret value', saveUninitialized: true, resave: fals
 
 
 app.use('/login', login);
-app.use('/home', home);
-app.use('/logout', logout);
-app.use('/user', user);
+// app.use('/home', home);
+// app.use('/logout', logout);
+// app.use('/user', user);
 
 //router
 app.get('/', (req, res)=>{

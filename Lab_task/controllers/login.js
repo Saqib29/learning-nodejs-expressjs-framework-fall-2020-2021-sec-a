@@ -8,19 +8,23 @@ router.get('/', (req, res)=>{
 
 router.post('/', (req, res)=>{
 
+	if(req.body.password == '' || req.body.username){
+		res.redirect('/login');
+	}
+
 	var user = {
 		username: req.body.username,
 		password: req.body.password
 	};
 
 	// session added
-	req.session.username = req.body.username;
-	req.session.password = req.body.password;
+	req.session.username = user.username;
+	req.session.password = user.password;
+
 
 	userModel.validate(user, function(status){
 		if(status){
-			res.cookie('uname', req.body.username);
-			res.redirect('/home');
+			res.redirect('/home', {name: 'Saqib', id: '123'});
 		}else{
 			res.redirect('/login');
 		}
