@@ -4,6 +4,7 @@ const bodyParser 		= require('body-parser');
 const exSession 		= require('express-session');
 
 const login 			= require('./controllers/login');
+const home				= require('./controllers/home');
 
 const app				= express();
 const port				= 3000;
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(exSession({secret: 'secret value', saveUninitialized: true, resave: false}));
 
 app.use('/login', login);
+app.use('/home', home);
 
 //router
 app.get('/', (req, res)=>{
