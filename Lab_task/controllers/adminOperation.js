@@ -4,7 +4,7 @@ const operation         = require.main.require('./models/operationModel');
 const router            = express.Router();
 
 router.get('*', (req, res, next) => {
-    if(req.session.username == null){
+    if(req.session.username == ""){
         res.redirect('/login');
     } else {
         next();

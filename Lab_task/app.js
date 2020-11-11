@@ -7,6 +7,7 @@ const login 			= require('./controllers/login');
 const home				= require('./controllers/home');
 const adminOpeartion	= require('./controllers/adminOperation');
 const empOperation 		= require('./controllers/empOperation');
+const logout 			= require('./controllers/logout');
 
 const app				= express();
 const port				= 3000;
@@ -21,6 +22,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(exSession({secret: 'secret value', saveUninitialized: true, resave: false}));
 
 app.use('/login', login);
+app.use('/logout', logout);
 app.use('/home', home);
 app.use('/adminOperation', adminOpeartion);
 app.use('./empOperation', empOperation);
