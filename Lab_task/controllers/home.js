@@ -15,7 +15,7 @@ router.get('/admin', (req, res) => {
 });
 
 router.get('/employee', (req, res) => {
-    res.render('home/employee', req.session.user);
+    res.render('home/employeeView', req.session.user);
 });
 
 module.exports = router;

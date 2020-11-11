@@ -25,7 +25,7 @@ app.use('/login', login);
 app.use('/logout', logout);
 app.use('/home', home);
 app.use('/adminOperation', adminOpeartion);
-app.use('./empOperation', empOperation);
+app.use('/empOperation', empOperation);
 
 //router
 app.get('/', (req, res)=>{
