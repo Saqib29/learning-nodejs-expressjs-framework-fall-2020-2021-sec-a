@@ -34,8 +34,8 @@
                     <td><%= user.salary %></td>
                     <td><%= user.userRoll %></td>
                     <td>
-                        <a href="/adminOperation/update"><button style="color: green;">update</button></a>
-                        <a href="/adminOperation/delete"><button style="color: red;">delete</button></a>
+                        <a href="/adminOperation/update/<%= user.id %>"><button style="color: green;">update</button></a>
+                        <a href="/adminOperation/delete/<%= user.id %>"><button style="color: red;">delete</button></a>
                     </td>
                 </tr>
             <% }); %>

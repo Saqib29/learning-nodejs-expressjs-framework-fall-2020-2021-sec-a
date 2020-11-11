@@ -13,8 +13,18 @@ router.get('*', (req, res, next) => {
 
 router.get('/userlist', (req, res) => {
     operation.getAll((result) => {
-        res.render('home/userlist', { users: result} );
+        res.render('adminOperation/userlist', { users: result} );
     });
+});
+
+router.get('/update/:id', (req, res) => {
+    operation.getById(req.params.id, (result) => {
+        res.render('adminOperation/update', { user: result[0] });
+    });
+});
+
+router.post('/update/:id', (req, res) => {
+    
 });
 
 module.exports = router;
