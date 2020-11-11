@@ -67,4 +67,23 @@ router.post('/register', (req, res) => {
     });
 });
 
+
+router.get('/delete/:id', (req, res)=>{
+	operation.getById(req.params.id, (result) => {
+		res.render('adminOperation/delete', { user: result[0] });
+	});
+
+});
+
+router.post('/delete/:id', (req, res)=>{
+	operation.delete(req.params.id, (result) => {
+		if(result) {
+            res.redirect('/adminOperation/userlist');
+        } else {
+            res.send('<h1>Something went wrong!</h1>');
+        }
+	});
+});
+
+
 module.exports = router;
