@@ -31,13 +31,15 @@ module.exports= {
 		});
 	},
 	insert: function(user, callback){
-		var sql = `INSERT INTO user (id, username, password, type) VALUES (${user.id}, ${user.username}, ${user.password}, ${user.type})`;
+		var sql = `INSERT INTO user (username, password, empName, compName, conctNo, jobTitle, jobLoc, salary, userRoll) VALUES ('${user.username}', '${user.password}', '${user.empName}', '${user.compName}', '${user.conctNo}',NULL, NULL, NULL, '${user.userRoll}')`;
+	
 		db.execute(sql, (result) => {
 			callback(result);
+			console.log(result);
 		});
 	},
 	update:function(user, callback){
-		var sql = `UPDATE user SET username = '${user.username}', password = '${user.password} WHERE id = ${user.id}'`;
+		var sql = `UPDATE user SET username = '${user.username}', password = '${user.password}', empName = '${user.empName}', compName = '${user.compName}', conctNo = '${user.conctNo}' WHERE id = '${user.id}'`;
 		db.execute(sql, (result) => {
 			callback(result);
 		});
