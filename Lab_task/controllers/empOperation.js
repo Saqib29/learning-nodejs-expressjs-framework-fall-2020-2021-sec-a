@@ -43,7 +43,6 @@ router.post('/addjob', (req, res) => {
 });
 
 router.get('/update/:id', (req, res) => {
-    
     operation.getById(req.params.id, (result) => {
         res.render('empOperation/update', { user: result[0] });
     });
@@ -66,6 +65,20 @@ router.post('/update/:id', (req, res) => {
     });
 });
 
+router.get('/delete/:id', (req, res) => {
+    operation.getById(req.params.id, (result) => {
+        res.render('empOperation/delete', { user: result[0] });
+    });
+});
 
+router.post('/delete/:id', (req, res) => {
+    operation.delete(req.params.id, (result) => {
+        if(result) {
+            res.redirect('/empOperation/viewJobs');
+        } else {
+            res.send('<h1>Something went wrong!</h1>');
+        }
+    });
+});
 
 module.exports = router;

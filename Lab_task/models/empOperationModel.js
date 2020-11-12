@@ -1,23 +1,6 @@
 const db = require('./dbConnection');
 
 module.exports= {
-	// validate: function(user, callback){
-	// 	var sql = "select * from user where username='"+user.username+"' and password='"+user.password+"'";
-	// 	db.getResults(sql, function(results){
-	// 		if(results.length > 0 ){
-	// 			callback(true);
-	// 		}else{
-	// 			callback(false);
-	// 		}
-	// 	});
-	// },
-	// getId: function(password, username, callback){
-	// 	var sql = `SELECT * FROM user WHERE username = '${username}' AND password = '${password}'`;
-	// 	db.getResults(sql, function(result){
-	// 		console.log(result);
-	// 		callback(result);
-	// 	});
-	// },
 	getById: function(id, callback) {
 		var sql = `SELECT * FROM job WHERE id = ${id}`;
 		db.getResults(sql, (result) => {
@@ -30,12 +13,6 @@ module.exports= {
 			callback(result);
 		});
 	},
-	// getAll: function(callback){
-	// 	var sql = "select * from user";
-	// 	db.getResults(sql, function(results){
-	// 		callback(results);
-	// 	});
-	// },
 	insert: function(user, callback){
 		var sql = `INSERT INTO job (compName, jobTitle, jobLoc, salary, user_id) VALUES ('${user.compName}', '${user.jobTitle}','${user.jobLoc}', '${user.salary}', '${user.user_id}')`;
 	
@@ -58,7 +35,7 @@ module.exports= {
 		});
 	},
 	delete: function(id, callback){
-		var sql = `DELETE FROM user WHERE id = ${id}`;
+		var sql = `DELETE FROM job WHERE id = ${id}`;
 		db.execute(sql, (result) => {
 			callback(result);
 		});

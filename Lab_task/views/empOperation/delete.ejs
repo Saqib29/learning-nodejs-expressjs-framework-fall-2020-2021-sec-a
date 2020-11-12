@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Job</title>
+</head>
+<body>
+    <form method="post">
+		<fieldset>
+			<legend>Delete Job</legend>
+			<table>
+                <tr>
+                    <td>Id: </td>
+                    <td><%= user.id %></td>
+                </tr>
+                <tr>
+                    <td>Company: </td>
+                    <td><%= user.compName %></td>
+                </tr>
+                <tr>
+                    <td>Job Title: </td>
+                    <td><%= user.jobTitle %></td>
+                </tr>
+                <tr>
+                    <td>Location: </td>
+                    <td><%= user.jobLoc %></td>
+                </tr>
+                <tr>
+                    <td>Salary: </td>
+                    <td><%= user.salary %></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input style="color: red;" type="submit" name="submit" value="Confirm">
+                        <button><a style="text-decoration: none; color: green;" href="/empOperation/viewJobs">Cancel</a></button>
+                    </td>
+                </tr>
+			</table>
+		</fieldset>
+	</form>
+</body>
+</html>
