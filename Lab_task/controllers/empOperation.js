@@ -23,7 +23,23 @@ router.get('/addjob', (req, res) => {
 });
 
 router.post('/addjob', (req, res) => {
-    // need to work from here------------->
+    var user = {
+        compName: req.body.compName,
+        jobTitle: req.body.jobTitle,
+        jobLoc: req.body.jobLoc,
+        salary: req.body.salary,
+        user_id: req.session.user.id
+    };
+    operation.insert(user, (result) => {
+        if(result) {
+            operation.updateUsertable(user, (result) => {
+                res.redirect('/empOperation/viewjobs');
+            });
+            
+        } else {
+            res.send('<h1>Something went wrong!</h1');
+        }
+    });
 });
 
 

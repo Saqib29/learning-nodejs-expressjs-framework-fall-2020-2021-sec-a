@@ -31,15 +31,22 @@ module.exports= {
 	// 	});
 	// },
 	insert: function(user, callback){
-		var sql = `INSERT INTO user (username, password, empName, compName, conctNo, jobTitle, jobLoc, salary, userRoll) VALUES ('${user.username}', '${user.password}', '${user.empName}', '${user.compName}', '${user.conctNo}',NULL, NULL, NULL, '${user.userRoll}')`;
+		var sql = `INSERT INTO job (compName, jobTitle, jobLoc, salary, user_id) VALUES ('${user.compName}', '${user.jobTitle}','${user.jobLoc}', '${user.salary}', '${user.user_id}')`;
 	
 		db.execute(sql, (result) => {
 			callback(result);
 			console.log(result);
 		});
 	},
-	update:function(user, callback){
+	update: function(user, callback){
 		var sql = `UPDATE user SET username = '${user.username}', password = '${user.password}', empName = '${user.empName}', compName = '${user.compName}', conctNo = '${user.conctNo}' WHERE id = '${user.id}'`;
+		db.execute(sql, (result) => {
+			callback(result);
+		});
+	},
+	updateUsertable: function(user, callback){
+		var sql = `UPDATE user SET jobTitle = '${user.jobTitle}', jobLoc = '${user.jobLoc}', salary = '${user.salary}' WHERE id = '${user.user_id}'`;
+
 		db.execute(sql, (result) => {
 			callback(result);
 		});
