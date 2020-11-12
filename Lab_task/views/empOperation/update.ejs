@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update</title>
+</head>
+<body>
+    <form method="POST">
+        <fieldset>
+            <legend>Update</legend>
+            <table>
+                <tr>
+                    <td>Id: </td>
+                    <td><input type="text" name="id" value="<%= user.id %>" disabled></td>
+                </tr>
+                <tr>
+                    <td>Company: </td>
+                    <td><input type="text" name="compName" value="<%= user.compName %>"></td>
+                </tr>
+                <tr>
+                    <td>Job Title: </td>
+                    <td><input type="text" name="jobTitle" value="<%= user.jobTitle %>"></td>
+                </tr>
+                <tr>
+                    <td>Job Location: </td>
+                    <td><input type="text" name="jobLoc" value="<%= user.jobLoc %>"></td>
+                </tr>
+                <tr>
+                    <td>Salary: </td>
+                    <td><input type="text" name="salary" value="<%= user.salary %>"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td align="right">
+
+                        <br>
+                        <button><a href="/empOperation/viewJobs" style="color: blue; text-decoration: none;">Cancel</a></button>
+                        <input type="submit" name="submit" value="Confrim" style="color: green;">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+</body>
+</html>

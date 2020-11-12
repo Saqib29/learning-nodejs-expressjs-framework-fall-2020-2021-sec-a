@@ -13,7 +13,7 @@ router.get('*', (req, res, next) => {
 });
 
 router.get('/viewJobs', (req, res) => {
-    operation.getById(req.session.user.id, (results) => {
+    operation.getByuser_Id(req.session.user.id, (results) => {
         res.render('empOperation/joblist', { users: results });
     });
 });
@@ -41,6 +41,31 @@ router.post('/addjob', (req, res) => {
         }
     });
 });
+
+router.get('/update/:id', (req, res) => {
+    
+    operation.getById(req.params.id, (result) => {
+        res.render('empOperation/update', { user: result[0] });
+    });
+});
+
+router.post('/update/:id', (req, res) => {
+    var user = {
+        id: req.params.id,
+        compName: req.body.compName,
+        jobTitle: req.body.jobTitle,
+        jobLoc: req.body.jobLoc,
+        salary: req.body.salary
+    };
+    operation.update(user, (result) => {
+        if(result) {
+            res.redirect('/empOperation/viewJobs');
+        } else {
+            res.send('<h1>Somethingf went wrong!</h1>');
+        }
+    });
+});
+
 
 
 module.exports = router;

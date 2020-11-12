@@ -18,7 +18,13 @@ module.exports= {
 	// 		callback(result);
 	// 	});
 	// },
-	getById: function(user_id, callback){
+	getById: function(id, callback) {
+		var sql = `SELECT * FROM job WHERE id = ${id}`;
+		db.getResults(sql, (result) => {
+			callback(result);
+		});
+	},
+	getByuser_Id: function(user_id, callback){
 		var sql = `SELECT * FROM job WHERE user_id = ${user_id}`;
 		db.getResults(sql, function(result){
 			callback(result);
@@ -39,7 +45,7 @@ module.exports= {
 		});
 	},
 	update: function(user, callback){
-		var sql = `UPDATE user SET username = '${user.username}', password = '${user.password}', empName = '${user.empName}', compName = '${user.compName}', conctNo = '${user.conctNo}' WHERE id = '${user.id}'`;
+		var sql = `UPDATE job SET compName = '${user.compName}', jobTitle = '${user.jobTitle}', jobLoc = '${user.jobLoc}', salary = '${user.salary}' WHERE id = '${user.id}'`;
 		db.execute(sql, (result) => {
 			callback(result);
 		});
