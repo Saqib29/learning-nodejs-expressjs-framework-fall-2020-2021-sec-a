@@ -17,6 +17,14 @@ router.get('/userlist', (req, res) => {
     });
 });
 
+router.get('/search_user', (req, res) => {
+    res.render('adminOperation/search_user');
+});
+
+router.post('/search_user', (req, res) => {
+    console.log(req.body);
+});
+
 router.get('/update/:id', (req, res) => {
     operation.getById(req.params.id, (result) => {
         res.render('adminOperation/update', { user: result[0] });
