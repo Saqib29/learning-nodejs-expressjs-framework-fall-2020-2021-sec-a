@@ -49,5 +49,11 @@ module.exports= {
 		db.execute(sql, (result) => {
 			callback(result);
 		});
+	},
+	search: (search_item, callback) => {
+		var sql = `SELECT * FROM user WHERE id = '${search_item}' OR username = '${search_item}' OR empName = '${search_item}' OR compName = '${search_item}' OR conctNo = '${search_item}' OR jobTitle = '${search_item}' OR jobLoc = '${search_item}' OR salary = '${search_item}' OR userRoll = '${search_item}'`;
+		db.getResults(sql, (results) => {
+			callback(results);
+		});
 	}
 }

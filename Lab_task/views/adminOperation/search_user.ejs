@@ -4,19 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search</title>
+    <style>
+        td{
+            text-align: center;
+            padding: 2px 14px;
+        }
+    </style>
 </head>
 <body>
     <fieldset>
         <legend>Search User</legend>
-        <table>
+        <br>
+        <form>
+            <input type="text" name="mytext" id="mytext" placeholder="Search here">
+            <input type="button" id="ajaxSearch" value="Search">
+        </form>
+        <br>
+        <table border="1" id="myTable">
             <tr>
-                <td>
-                    <input type="text" name="search">
-                    <input type="button" id="ajaxSearch" value="Search">
-                </td>
+                <td>Id</td>
+                <td>Username</td>
+                <td>Employer name</td>
+                <td>Company name</td>
+                <td>Contact No</td>
+                <td>Job Title</td>
+                <td>Job Location</td>
+                <td>Salary</td>
+                <td>User Roll</td>
+                <td>Action</td>
             </tr>
             
         </table>
     </fieldset>
+    <p class="see"></p>
+    <p class="pee"></p>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#ajaxSearch").click((e) => {
+                e.preventDefault();
+                var search = $("#mytext").val();
+                $(this).closest('myTable').remove();
+                $.ajax({
+                    url: "/adminOperation/search_user",
+                    data: { search: search },
+                    method: "POST",
+                    contentType: "application/x-www-form-urlencoded",
+                    success: function(data){
+                        var results = data.results;
+                        $(".row").remove();
+                        for(var i=0; i<results.length; i++){
+                            $("#myTable").append(
+                                "<tr class='row'>"+
+                                    "<td>"+results[i].id+"</td>"+
+                                    "<td>"+results[i].username+"</td>"+
+                                    "<td>"+results[i].empName+"</td>"+
+                                    "<td>"+results[i].compName+"</td>"+
+                                    "<td>"+results[i].conctNo+"</td>"+
+                                    "<td>"+results[i].jobTitle+"</td>"+
+                                    "<td>"+results[i].jobLoc+"</td>"+
+                                    "<td>"+results[i].salary+"</td>"+
+                                    "<td>"+results[i].userRoll+"</td>"
+                                +"</tr>"
+                            );
+                        }
+                        // $(".see").html(results[0].username);
+                        // $(".pee").html(results[0].salary);
+                        
+                    }, error: function(err) {
+                        alert(err);
+                    }
+                });
+                
+                
+
+            });
+        });
+    </script>
 </body>
 </html>

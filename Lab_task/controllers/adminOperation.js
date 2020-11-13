@@ -1,5 +1,6 @@
 const express           = require('express');
 const operation         = require.main.require('./models/operationModel');
+const httpMsgss         = require('http-msgs');
 
 const router            = express.Router();
 
@@ -22,7 +23,11 @@ router.get('/search_user', (req, res) => {
 });
 
 router.post('/search_user', (req, res) => {
-    console.log(req.body);
+    operation.search(req.body.search, (result) => {
+        res.json({
+            results: result
+        });
+    });
 });
 
 router.get('/update/:id', (req, res) => {
