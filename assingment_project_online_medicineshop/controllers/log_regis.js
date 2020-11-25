@@ -41,8 +41,8 @@ router.post('/registration', [
             // console.log(user);
             user_db_connection.insert(user, (status) => {
                 if(status) {
-                    // res.redirect('/home/login');
-                    console.log(status);
+                    res.redirect('/home/login');
+                    // console.log(status);
                 } else {
                     res.send("<h1>Ops! Something went wrong!</h1>");
                     console.log(status);
