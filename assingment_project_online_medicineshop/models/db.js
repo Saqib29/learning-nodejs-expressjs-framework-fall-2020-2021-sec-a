@@ -1,54 +1,85 @@
-const db           = require('mysql');
-const { connect } = require('../controllers/log_regis');
+const mysql 	= require('mysql');
 
+var getConnection = function(callback){
+	var connection = mysql.createConnection({
+		  host     : 'localhost',
+		  database : 'medicine_shop',
+		  user     : 'root',
+		  password : ''
+		});
+	 
+	connection.connect(function(err) {
+	  if (err) {
+	    console.error('error connecting: ' + err.stack);
+	    return;
+	  }
+	  console.log('connected as id ' + connection.threadId);
 
-var getConnection = (callback) => {
-    var connection = mysql.craeteConnection({
-        host        : 'localhost',
-        database    : '',
-        user        : 'root',
-        password    : ''
-    });
+	});
 
-    connection.connect((err) => {
-        if(err) {
-            console.log(`error connecting: ${err.stack}`);
-            return;
-        }
-        console.log(`connected as id ${connection.threadId}`);
-    });
+	callback(connection);
 
-    callback(coonection);
 }
 
 module.exports = {
-    getResult: (sql, callback) => {
-        getConnection((connection) => {
-            connection.query(sql, (error, results) => {
-                callback(results);
-            });
+	getResults: function (sql, params, callback){
+		
+		getConnection(function(connection){
 
-            connection.end((err) => {
-                console.log('connection end...');
-            });
-        });
-    },
+			if(params != null){
+				connection.query(sql, params, function (error, results) {
+					callback(results);
+				});
+				
+				connection.end(function(err) {
+				  console.log('connection end...');
+				});
 
-    execute: (sql, callback) => {
-        getConnection((connection) => {
-            connection.query(sql, (status) => {
+			}else{
+				connection.query(sql, function (error, results) {
+					callback(results);
+				});
+				
+				connection.end(function(err) {
+				  console.log('connection end...');
+				});
+			}
+		});
 
-                if(status) {
-                    callback(true);
-                }
-                else{
-                    callback(false);
-                }
-            });
+	},
+	execute: function (sql, params, callback){
+		getConnection(function(connection){
 
-            connection.end((err) => {
-                console.log('connection end...')
-            });
-        });
-    }
+			if(params != null){
+				connection.query(sql, params, function (error, status) {
+					if(status){
+						callback(true);
+					}else{
+						callback(false);
+					}
+				});
+				
+				connection.end(function(err) {
+				  console.log('connection end...');
+				});
+			}else{
+				connection.query(sql, function (error, status) {
+					if(status){
+						callback(true);
+					}else{
+						callback(false);
+					}
+				});
+				
+				connection.end(function(err) {
+				  console.log('connection end...');
+				});
+			}
+		
+		});
+	}
 }
+
+
+
+
