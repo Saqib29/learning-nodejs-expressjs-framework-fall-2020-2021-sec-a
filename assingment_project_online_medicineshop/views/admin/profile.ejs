@@ -28,6 +28,9 @@
                         <a href="" data-target="#add_medicine" data-toggle="tab" class="nav-link">Add Medicine</a>
                     </li>
                     <li class="nav-item">
+                        <a href="" data-target="#orders" data-toggle="tab" class="nav-link">Orders</a>
+                    </li>
+                    <li class="nav-item">
                         <a href="" data-target="#purchase" data-toggle="tab" class="nav-link">Purchases</a>
                     </li>
                 </ul>
@@ -169,6 +172,39 @@
                                         <td>
                                             <a class="btn btn-secondary" href="">View</a>
                                         </td>
+                                      </tr>
+                                <% } %>
+                              
+                              
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="tab-pane" id="orders">
+                        <table class="table">
+                            <thead class="thead-dark">
+                              <tr>
+                                <th scope="col">Purchase NO</th>
+                                <th scope="col">Medicine</th>
+                                <th scope="col">quantity</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Customer Name</th>
+                                <th scope="col">Contact</th>
+                                <th scope="col">Date</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+
+                                <% for(var i=0; i < purchases.length; i++) { %>
+                                    <tr>
+                                        <th scope="row"><%= purchases[i].id %></th>
+                                        <td><%= purchases[i].medicine_name %></td>
+                                        <td><%= purchases[i].quantity %></td>
+                                        <td><%= purchases[i].price %></td>
+                                        <td><%= purchases[i].customer_name %></td>
+                                        <td><%= purchases[i].customer_number %></td>
+                                        <td><%= purchases[i].date %></td>
+                                        
                                       </tr>
                                 <% } %>
                               
