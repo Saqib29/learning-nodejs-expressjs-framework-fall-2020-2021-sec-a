@@ -18,7 +18,7 @@ router.get('/profile', (req, res) => {
     admin_operation.get_customers((results) => {
        admin_operation.get_medicines((medicines) => {
            admin_operation.purchase_list((purchase_list) => {
-               console.log(purchase_list);
+            //    console.log(purchase_list);
                res.render('admin/profile', { user : req.session.user, customers : results, medicines : medicines, purchases : purchase_list });
            });
        });

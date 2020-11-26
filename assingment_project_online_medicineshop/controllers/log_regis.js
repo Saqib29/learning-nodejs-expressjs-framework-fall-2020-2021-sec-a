@@ -40,7 +40,7 @@ router.post('/login', [
                     if(req.session.user.user_roll == 'admin'){
                         res.redirect('/admin/profile');
                     } else if (req.session.user.user_roll == 'customer') {
-                        res.redirect('customer/profile');
+                        res.redirect('/customer/profile');
                     }
                     // res.redirect('/admin/profile');
                 } 
