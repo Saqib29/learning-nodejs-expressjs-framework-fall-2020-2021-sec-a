@@ -14,5 +14,11 @@ module.exports = {
             callback(status);
         });
         // console.log(data);
+    },
+    get_medicines: (callback) => {
+        var sql = `SELECT * FROM medicine`;
+        db.getResults(sql, null, (results) => {
+            callback(results);
+        });
     }
 }

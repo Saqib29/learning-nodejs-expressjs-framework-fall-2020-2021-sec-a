@@ -36,7 +36,12 @@ router.post('/login', [
                         user_roll: result[0].user_roll
                     };
 
-                    res.redirect('/admin/profile');
+                    if(req.session.user.user_roll == 'admin'){
+                        res.redirect('/admin/profile');
+                    } else if (req.session.user.user_roll == 'customer') {
+                        res.redirect('customer/profile');
+                    }
+                    // res.redirect('/admin/profile');
                 } 
                 else {
                     res.render('home/wrong');

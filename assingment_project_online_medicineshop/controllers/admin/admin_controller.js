@@ -7,15 +7,11 @@ const router        = express.Router();
 
 router.get('/profile', (req, res) => {
     admin_operation.get_customers((results) => {
-       
-        console.log(results);
+       admin_operation.get_medicines((medicines) => {
+        res.render('admin/profile', { user : req.session.user, customers : results, medicines : medicines });
+       });
+        // console.log(results);
         
-        if(req.session.user.user_roll == 'admin'){
-            res.render('admin/profile', { user : req.session.user, customers : results });
-        } else if (req.session.user.user_roll == 'customer') {
-            res.render('customer/profile', { user : req.session.user });
-        }
-
     });
 });
 
