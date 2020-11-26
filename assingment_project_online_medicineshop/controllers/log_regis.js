@@ -2,6 +2,7 @@ const { urlencoded }                                  = require('body-parser');
 const express                                         = require('express');
 const { check, validtionResult, validationResult }    = require('express-validator');
 const user_db_connection                              = require('../models/user');
+const admin_operation                                 = require('../models/admin');
 
 const router               = express.Router();
 
@@ -25,17 +26,20 @@ router.post('/login', [
             };
             user_db_connection.validate(user, (result) => {
                 if(result.length > 0){
+
                     req.session.user = {
                         id: result[0].id,
                         username: result[0].username,
                         password: result[0].password,
                         contact: result[0].contact,
+                        address: result[0].address,
                         user_roll: result[0].user_roll
                     };
-                    
-                    res.send(req.session.user);
-                } else {
-                    res.send('user not existed, got to register');
+
+                    res.redirect('/admin/profile');
+                } 
+                else {
+                    res.render('home/wrong');
                 }
             });
             // console.log(req.body);

@@ -3,6 +3,7 @@ const expressSession            = require('express-session');
 const bodyParser                = require('body-parser');
 
 const log_regis                 = require('./controllers/log_regis');
+const admin                     = require('./controllers/admin/admin_controller');
 
 
 const app                       = express();
@@ -17,6 +18,9 @@ app.use(expressSession({ secret: 'secrete value', saveUninitialized: true, resav
 
 app.use('/home', log_regis);
 app.use('/home', log_regis);
+app.use('/admin', admin);
+
+
 
 app.get('/', (req, res) => {
     res.render('home/welcome');
