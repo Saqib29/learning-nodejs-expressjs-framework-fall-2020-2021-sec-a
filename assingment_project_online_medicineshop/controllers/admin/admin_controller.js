@@ -5,6 +5,15 @@ const admin_operation                                 = require.main.require('./
 const router        = express.Router();
 
 
+router.get('*', (req, res, next) => {
+    if(req.session.user == null) {
+        res.redirect('/home/logout');
+    }
+    else {
+        next();
+    }
+});
+
 router.get('/profile', (req, res) => {
     admin_operation.get_customers((results) => {
        admin_operation.get_medicines((medicines) => {

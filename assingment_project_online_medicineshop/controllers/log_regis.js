@@ -3,6 +3,7 @@ const express                                         = require('express');
 const { check, validtionResult, validationResult }    = require('express-validator');
 const user_db_connection                              = require('../models/user');
 const admin_operation                                 = require('../models/admin');
+const { route } = require('./admin/admin_controller');
 
 const router               = express.Router();
 
@@ -89,6 +90,10 @@ router.post('/registration', [
         }
 });
 
+router.get('/logout', (req, res) => {
+    req.session.user = null;
+    res.redirect('/home/login');
+});
 
 
 module.exports = router;
