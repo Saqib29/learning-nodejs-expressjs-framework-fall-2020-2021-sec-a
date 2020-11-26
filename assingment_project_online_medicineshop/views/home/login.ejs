@@ -11,14 +11,27 @@
 				<tr>
 					<td>Username</td>
 					<td><input type="text" name="username"></td>
+					<td>
+                        <% if(username != 'undefind'){ %>
+                            <div style="color: orange; padding: 1px 3px;" role="alert"><%= username.msg %></div>
+                            
+                        <% } %>
+                    </td>
 				</tr>
 				<tr>
 					<td>Password</td>
 					<td><input type="password" name="password"></td>
+					<td>
+                        <% if(password != 'undefind'){ %>
+                            <div style="color: orange; padding: 1px 3px;" role="alert"><%= password.msg %></div>
+                            
+                        <% } %>
+                    </td>
 				</tr>
 				<tr>
 					<td></td>
 					<td><input type="submit" name="submit" value="Submit"></td>
+					
 				</tr>
 			</table>
 		</fieldset>
