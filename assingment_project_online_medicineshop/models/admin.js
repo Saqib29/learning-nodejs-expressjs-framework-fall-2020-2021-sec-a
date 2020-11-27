@@ -33,5 +33,11 @@ module.exports = {
         db.getResults(sql, null, (results) => {
             callback(results);
         });
+    },
+    get_orders: (callback) => {
+        var sql = `SELECT * FROM orders`;
+        db.getResults(sql, null, (orders) => {
+            callback(orders);
+        });
     }
 }

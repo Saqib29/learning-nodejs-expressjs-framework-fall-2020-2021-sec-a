@@ -43,11 +43,13 @@
                                 <fieldset>
                                     <legend></legend>
                                     <h3 style="color: orange;"><%= user.username %></h3>
+                                    <h6>Contact:</h6>
                                     <p>
-                                        Contact: <%= user.contact %>
+                                         <%= user.contact %>
                                     </p>
+                                    <h6>Address:</h6>
                                     <p>
-                                        Address: <%= user.address %></5>
+                                         <%= user.address %></5>
                                     </p>
                                 </fieldset>
                             </div>
@@ -184,27 +186,31 @@
                         <table class="table">
                             <thead class="thead-dark">
                               <tr>
-                                <th scope="col">Purchase NO</th>
+                                <th scope="col">ID</th>
                                 <th scope="col">Medicine</th>
-                                <th scope="col">quantity</th>
+                                <th scope="col">Quantity</th>
                                 <th scope="col">Price</th>
                                 <th scope="col">Customer Name</th>
-                                <th scope="col">Contact</th>
+                                <th scope="col">Customer Contact</th>
                                 <th scope="col">Date</th>
+                                <th scope="col">Handle</th>
+                                
                               </tr>
                             </thead>
                             <tbody>
 
-                                <% for(var i=0; i < purchases.length; i++) { %>
+                                <% for(var i=0; i < orders.length; i++) { %>
                                     <tr>
-                                        <th scope="row"><%= purchases[i].id %></th>
-                                        <td><%= purchases[i].medicine_name %></td>
-                                        <td><%= purchases[i].quantity %></td>
-                                        <td><%= purchases[i].price %></td>
-                                        <td><%= purchases[i].customer_name %></td>
-                                        <td><%= purchases[i].customer_number %></td>
-                                        <td><%= purchases[i].date %></td>
-                                        
+                                        <th scope="row"><%= orders[i].id %></th>
+                                        <td><%= orders[i].medicine_name %></td>
+                                        <td><%= orders[i].quantity %></td>
+                                        <td><%= orders[i].price %></td>
+                                        <td><%= orders[i].customer_name %></td>
+                                        <td><%= orders[i].customer_number %></td>
+                                        <td><%= orders[i].date %></td>
+                                        <td>
+                                            <a class="btn btn-secondary" href="">Confirm</a>
+                                        </td>
                                       </tr>
                                 <% } %>
                               
