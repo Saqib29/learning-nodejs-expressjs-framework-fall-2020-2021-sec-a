@@ -63,4 +63,9 @@ router.post('/edit_profile/:id', [
         }
 });
 
+router.post('/adding_cart', (req, res) => {
+    console.log('req.body');
+    
+});
+
 module.exports = router;

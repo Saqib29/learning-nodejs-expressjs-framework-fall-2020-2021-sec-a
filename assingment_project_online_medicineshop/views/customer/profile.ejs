@@ -6,6 +6,8 @@
     <title><%= user.username %></title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 <body>
     <div style="margin: 70px;"></div>
@@ -68,7 +70,7 @@
 
                                 <% for(var i=0; i < medicines.length; i++) { %>
                                     <tr>
-                                        <th scope="row"><%= medicines[i].id %></th>
+                                        <th scope="row"><p><%= medicines[i].id %></p></th>
                                         <td><%= medicines[i].name %></td>
                                         <td><%= medicines[i].availability %></td>
                                         <td><%= medicines[i].price %></td>
@@ -76,10 +78,9 @@
                                         <td><%= medicines[i].type %></td>
                                         <td><%= medicines[i].vendor %></td>
                                         <td>
-                                           <form>
                                                 <input type="number" name="quantity" min="1" max="<%= medicines[i].availability %>" required>
+                                                <!-- <a id="cart" href="" class="btn btn-secondary">Add to Cart</a> -->
                                                 <input type="submit" class="btn btn-secondary" value="Add to Cart">
-                                           </form>
                                         </td>
                                       </tr>
                                 <% } %>
@@ -137,5 +138,37 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+
+    <script>
+        $(document).ready(() => {
+            
+            $("#add_to_cart").click((e) => {
+                e.preventDefault();
+
+                var id = $("#id").text();
+                var  quantity = $("#availability").val();
+                var data = { id : id, quantity : quantity };
+
+                alert(quantity);
+
+                $.ajax({
+                    url: "/customer/adding_cart",
+                    data: { data : data },
+                    method: "POST",
+                    contentType: "application/x-www-form-urlencoded",
+                    success: (result) => {
+                        alert('data come');
+                    },
+                    error: (err) => {
+                        alert(err);
+                    }
+                });
+            
+            });
+        });
+    </script>
+
 </body>
 </html>
