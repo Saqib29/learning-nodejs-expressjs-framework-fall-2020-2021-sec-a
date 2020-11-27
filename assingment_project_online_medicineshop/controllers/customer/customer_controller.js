@@ -1,4 +1,5 @@
-const express           = require('express');
+const express               = require('express');
+const customer_operation    = require.main.require('./models/customer');
 
 const router            = express.Router();
 
@@ -12,7 +13,8 @@ router.get('*', (req, res, next) => {
 });
 
 router.get('/profile', (req, res) => {
-    res.send('Set me up');
+
+    res.render('customer/profile', { user : req.session.user });
 });
 
 module.exports = router;
