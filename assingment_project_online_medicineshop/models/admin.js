@@ -49,7 +49,7 @@ module.exports = {
             callback(status);
         });
     },
-    delete: (id, callback) => {
+    delete_customer: (id, callback) => {
         var sql = `DELETE FROM user WHERE id = ?`;
 
         db.execute(sql, [id], (status) => {

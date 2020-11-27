@@ -93,8 +93,8 @@ router.get('/view_customer/:id', (req, res) => {
     });
 });
 
-router.get('/delete/:id', (req, res) => {
-    admin_operation.delete(req.params.id, (status) => {
+router.get('/delete_customer/:id', (req, res) => {
+    admin_operation.delete_customer(req.params.id, (status) => {
         if(status){
             res.redirect('/admin/profile');
         } else {
