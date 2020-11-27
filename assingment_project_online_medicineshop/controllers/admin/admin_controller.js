@@ -103,4 +103,36 @@ router.get('/delete_customer/:id', (req, res) => {
     });
 });
 
+
+router.get('/medicine_view/:id', (req, res) => {
+    admin_operation.get_medicine_by_id(req.params.id, (result) => {
+        res.render('admin/medicine_view', { data : result[0] });
+        // console.log(result);
+    });
+    // console.log(req.params.id);
+});
+
+router.post('/medicine_view/:id', (req, res) => {
+    admin_operation.update_medicine(req.params.id, req.body, (status) => {
+        if(status){
+            res.redirect('/admin/profile');
+        } else {
+            res.send('<h1>Something went wrong <a href="admin/profile">try again</a></h1>');
+        }
+    });
+    // console.log(req.params.id);
+});
+
+router.get('/delete_medicine/:id', (req, res) => {
+    admin_operation.delete_medicine(req.params.id, (status) => {
+        if(status) {
+            res.redirect('/admin/profile');
+        } else {
+            res.send('Something went wrong!');
+        }
+    });
+    // console.log(req.params.id);
+});
+
+
 module.exports = router;

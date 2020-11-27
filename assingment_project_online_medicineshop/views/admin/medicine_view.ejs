@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= data.name %>Medicine</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <div style="margin: 70px;"></div>
+
+
+    <div class="container">
+        <div class="row my-2">
+            <div class="col-lg-8 order-lg-2">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a href="" data-target="#medicine" data-toggle="tab" class="nav-link active">Medeicine</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" data-target="#modify" data-toggle="tab" class="nav-link">Modify Medicine</a>
+                    </li>
+                </ul>
+                <div class="tab-content py-4">
+                    <div class="tab-pane active" id="medicine">
+                        <h5 class="mb-3"><%= data.category.toUpperCase() %></h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                
+                                <fieldset>
+                                    <legend></legend>
+                                    <h3 style="color: orange;"><%= data.name %></h3>
+                                    <b>Quantity:</b>
+                                    <p>
+                                         <%= data.availability %>
+                                    </p>
+                                    <b>Category: </b> 
+                                    <p>
+                                         <%= data.category %>
+                                    </p>
+                                    <b>Type:</b>
+                                    <p>
+                                         <%= data.type %>
+                                    </p>
+                                    <b>Vendor:</b>
+                                    <p>
+                                         <%= data.vendor %>
+                                    </p>
+                                    <b>Price:</b>
+                                    <p>
+                                         <%= data.price %>
+                                    </p>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6">
+                                
+                                
+                            </div>
+                            <div class="col-md-12">
+                                <a href="/admin/profile" class="btn btn-secondary">Back</a>
+                                <a href="/admin/delete_medicine/<%= data.id %>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                            </div>
+                        </div>
+                        <!--/row-->
+                    </div>
+
+                    <div class="tab-pane" id="modify">
+                        
+                        <form role="form" action="" method="POST">
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Medicine name</label>
+                                <div class="col-lg-9">
+                                    <input class="form-control" type="text" name="name" value="<%= data.name %>" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Price</label>
+                                <div class="col-lg-9">
+                                    <input class="form-control" type="text" name="price" value="<%= data.price %>" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Category</label>
+                                <div class="col-lg-9">
+                                    <input class="form-control" type="text" name="category" value="<%= data.category %>" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Type</label>
+                                <div class="col-lg-9">
+                                    <input class="form-control" type="text" name="type" value="<%= data.type %>" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Availability</label>
+                                <div class="col-lg-9">
+                                    <input class="form-control" type="text" name="availability" value="<%= data.availability %>" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Vendor</label>
+                                <div class="col-lg-9">
+                                    <input class="form-control" type="text" name="vendor" value="<%= data.vendor %>" required>
+                                </div>
+                            </div>
+                                                        
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label"></label>
+                                <div class="col-lg-9">
+                                    <a href="/admin/profile" class="btn btn-secondary">Cancel</a>
+                                    <input type="submit" class="btn btn-primary" onclick="return confirm('Confirm?');" value="Save">
+                                </div>
+                            </div>
+                        </form>
+                          
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-lg-4 order-lg-1 text-center">
+                <img src="//placehold.it/150" class="mx-auto img-fluid img-circle d-block" alt="avatar">
+                <h6 class="mt-2">Upload a different photo</h6>
+                <label class="custom-file">
+                    <input type="file" id="file" class="custom-file-input">
+                    <span class="custom-file-control"><button class="btn btn-primary">Choose file</button></span>
+                </label><br><br><br>
+                <label><a href="/home/logout" class="btn btn-secondary">Logout</a></label>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+</body>
+</html>

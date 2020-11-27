@@ -28,6 +28,28 @@ module.exports = {
             callback(results);
         });
     },
+    get_medicine_by_id: (id, callback) => {
+        var sql = `SELECT * FROM medicine WHERE id = ?`;
+
+        db.getResults(sql, [id], (result) => {
+            callback(result);
+        });
+    },
+    update_medicine: (id, data, callback) => {
+        var sql = `UPDATE medicine SET name = ?, availability = ?, price = ?, category = ?, type = ?, vendor = ? WHERE id = ?`;
+        var update = [data.name, data.availability, data.price, data.category, data.type, data.vendor, id];
+        
+        db.execute(sql, update, (status) => {
+            callback(status);
+        });
+    },
+    delete_medicine: (id, callback) => {
+        var sql = `DELETE FROM medicine WHERE id = ?`
+
+        db.execute(sql, [id], (status) => {
+            callback(status);
+        });
+    },
     purchase_list: (callback) => {
         var sql = `SELECT * FROM purchase_list`;
         db.getResults(sql, null, (results) => {
