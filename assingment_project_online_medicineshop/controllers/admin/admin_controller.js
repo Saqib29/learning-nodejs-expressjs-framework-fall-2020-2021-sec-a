@@ -41,6 +41,28 @@ router.post('/add_medicine', (req, res) => {
     });
 });
 
-
+router.get('/edit_profile/:id', (req, res) => {
+    admin_operation.getById(req.params.id, (result) => {
+        res.render('admin/edit_profile', { user : result[0] });
+        // console.log(result);
+    });
+    // res.send(req.params.id);
+});
+router.post('/edit_profile/:id', (req, res) => {
+    if(req.body.password == req.body.repassword){
+        
+        admin_operation.update(req.body, (status) => {
+            if(status){
+                res.redirect('/home/logout');
+            }else {
+                res.send(`<h1>Pasword doesn't matched!</h1><p><a href="/admin/edit_profile/${req.params.id}">Try again</a></p>`)
+            }
+        });
+        // res.send('you did');
+    }
+    else {
+        res.send(`<h1>Pasword doesn't matched!</h1><p><a href="/admin/edit_profile/${req.params.id}">Try again</a></p>`);
+    }
+});
 
 module.exports = router;

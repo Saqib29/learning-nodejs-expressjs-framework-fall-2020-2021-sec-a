@@ -39,5 +39,14 @@ module.exports = {
         db.getResults(sql, null, (orders) => {
             callback(orders);
         });
+    },
+    update: (data, callback) => {
+        var sql = `UPDATE user SET username = ?, password = ?, contact = ?, address = ? WHERE id = ?`;
+        var update = [data.username, data.password, data.contact, data.address, data.id];
+
+        // console.log(data)
+        db.execute(sql, update, (status) => {
+            callback(status);
+        });
     }
 }
