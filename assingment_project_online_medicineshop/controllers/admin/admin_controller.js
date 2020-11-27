@@ -85,4 +85,22 @@ router.post('/edit_profile/:id', [
         
 });
 
+router.get('/view_customer/:id', (req, res) => {
+    // console.log(req.params.id);
+    admin_operation.getById(req.params.id, (result) => {
+        var user = result[0];
+        res.render('admin/customer_view', { customer : user });
+    });
+});
+
+router.get('/delete/:id', (req, res) => {
+    admin_operation.delete(req.params.id, (status) => {
+        if(status){
+            res.redirect('/admin/profile');
+        } else {
+            res.send('<h1>Something went wrong!</h1>');
+        }
+    });
+});
+
 module.exports = router;
