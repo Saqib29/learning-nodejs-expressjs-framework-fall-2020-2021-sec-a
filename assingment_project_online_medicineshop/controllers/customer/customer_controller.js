@@ -23,4 +23,27 @@ router.get('/profile', (req, res) => {
     });
 });
 
+router.get('/edit_profile/:id', (req, res) => {
+    customer_operation.getById(req.params.id, (result) => {
+        res.render('customer/edit_profile', { user : result[0] });
+    });
+});
+
+router.post('/edit_profile/:id', (req, res) => {
+    if(req.body.password == req.body.repassword){
+        
+        customer_operation.update(req.body, (status) => {
+            if(status){
+                res.redirect('/home/logout');
+            }else {
+                res.send(`<h1>Pasword doesn't matched!</h1><p><a href="/customer/edit_profile/${req.params.id}">Try again</a></p>`)
+            }
+        });
+        // res.send('you did');
+    }
+    else {
+        res.send(`<h1>Pasword doesn't matched!</h1><p><a href="/customer/edit_profile/${req.params.id}">Try again</a></p>`);
+    }
+});
+
 module.exports = router;
