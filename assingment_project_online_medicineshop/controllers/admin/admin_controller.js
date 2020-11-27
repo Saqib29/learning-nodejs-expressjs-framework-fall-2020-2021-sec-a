@@ -50,8 +50,8 @@ router.get('/edit_profile/:id', (req, res) => {
     // res.send(req.params.id);
 });
 router.post('/edit_profile/:id', [
-        check('password').not().isEmpty().isLength({ min : 6 }),
-        check('repassword').not().isEmpty().isLength({ min : 6 })
+        check('password', 'must be 6+ character').not().isEmpty().isLength({ min : 6 }),
+        check('repassword', 'must be 6+ character').not().isEmpty().isLength({ min : 6 })
     ], 
     (req, res) => {
 
