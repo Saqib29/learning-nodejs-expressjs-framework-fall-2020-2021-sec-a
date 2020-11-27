@@ -1,4 +1,5 @@
 const express                                         = require('express');
+const { check, validationResult }                     = require('express-validator');
 const admin_operation                                 = require.main.require('./models/admin');
 
 
@@ -43,26 +44,45 @@ router.post('/add_medicine', (req, res) => {
 
 router.get('/edit_profile/:id', (req, res) => {
     admin_operation.getById(req.params.id, (result) => {
-        res.render('admin/edit_profile', { user : result[0] });
+        res.render('admin/edit_profile', { user : result[0], password : 'undefined', repassword : 'undefined' });
         // console.log(result);
     });
     // res.send(req.params.id);
 });
-router.post('/edit_profile/:id', (req, res) => {
-    if(req.body.password == req.body.repassword){
-        
-        admin_operation.update(req.body, (status) => {
-            if(status){
-                res.redirect('/home/logout');
-            }else {
-                res.send(`<h1>Pasword doesn't matched!</h1><p><a href="/admin/edit_profile/${req.params.id}">Try again</a></p>`)
+router.post('/edit_profile/:id', [
+        check('password').not().isEmpty().isLength({ min : 6 }),
+        check('repassword').not().isEmpty().isLength({ min : 6 })
+    ], 
+    (req, res) => {
+
+        const error = validationResult(req);
+
+        if(!error.isEmpty()){
+            // console.log(error.mapped());
+            const er = error.mapped();
+            admin_operation.getById(req.params.id, (result) => {
+
+                res.render('admin/edit_profile', { user : result[0], password : (er.password) ? er.password : 'undefined', repassword : (er.repassword) ? er.repassword : 'undefined' });
+            });
+        }
+        else{
+            if(req.body.password == req.body.repassword){
+            
+                admin_operation.update(req.body, (status) => {
+                    if(status){
+                        res.redirect('/home/logout');
+                    }else {
+                        res.send(`<h1>Pasword doesn't matched!</h1><p><a href="/admin/edit_profile/${req.params.id}">Try again</a></p>`)
+                    }
+                });
+                // res.send('you did');
             }
-        });
-        // res.send('you did');
-    }
-    else {
-        res.send(`<h1>Pasword doesn't matched!</h1><p><a href="/admin/edit_profile/${req.params.id}">Try again</a></p>`);
-    }
+            else {
+                res.send(`<h1>Pasword doesn't matched!</h1><p><a href="/admin/edit_profile/${req.params.id}">Try again</a></p>`);
+            }
+        }
+
+        
 });
 
 module.exports = router;
