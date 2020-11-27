@@ -50,127 +50,74 @@
                         <!--/row-->
                     </div>
                     <div class="tab-pane" id="medicine">
-                        <div class="alert alert-info alert-dismissable">
-                            <a class="panel-close close" data-dismiss="alert">×</a> This is an <strong>.alert</strong>. Use this to show important messages to the user.
-                        </div>
-                        <table class="table table-hover table-striped">
-                            <tbody>                                    
-                                <tr>
-                                    <td>
-                                       <span class="float-right font-weight-bold">3 hrs ago</span> Here is your a link to the latest summary report from the..
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                       <span class="float-right font-weight-bold">Yesterday</span> There has been a request on your account since that was..
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                       <span class="float-right font-weight-bold">9/10</span> Porttitor vitae ultrices quis, dapibus id dolor. Morbi venenatis lacinia rhoncus. 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                       <span class="float-right font-weight-bold">9/4</span> Vestibulum tincidunt ullamcorper eros eget luctus. 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                       <span class="float-right font-weight-bold">9/4</span> Maxamillion ais the fix for tibulum tincidunt ullamcorper eros. 
-                                    </td>
-                                </tr>
-                            </tbody> 
+                        <table class="table">
+                            <thead class="thead-dark">
+                              <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Availability</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Vendor</th>
+                                <th scope="col">Handle</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+
+                                <% for(var i=0; i < medicines.length; i++) { %>
+                                    <tr>
+                                        <th scope="row"><%= medicines[i].id %></th>
+                                        <td><%= medicines[i].name %></td>
+                                        <td><%= medicines[i].availability %></td>
+                                        <td><%= medicines[i].price %></td>
+                                        <td><%= medicines[i].category %></td>
+                                        <td><%= medicines[i].type %></td>
+                                        <td><%= medicines[i].vendor %></td>
+                                        <td>
+                                           <form>
+                                                <input type="number" name="quantity" min="1" max="<%= medicines[i].availability %>" required>
+                                                <input type="submit" class="btn btn-secondary" value="Add to Cart">
+                                           </form>
+                                        </td>
+                                      </tr>
+                                <% } %>
+                              
+                              
+                            </tbody>
                         </table>
                     </div>
                     <div class="tab-pane" id="cart">
-                        <form role="form">
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">First name</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="text" value="Jane">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Last name</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="text" value="Bishop">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Email</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="email" value="email@gmail.com">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Company</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="text" value="">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Website</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="url" value="">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Address</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="text" value="" placeholder="Street">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label"></label>
-                                <div class="col-lg-6">
-                                    <input class="form-control" type="text" value="" placeholder="City">
-                                </div>
-                                <div class="col-lg-3">
-                                    <input class="form-control" type="text" value="" placeholder="State">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Time Zone</label>
-                                <div class="col-lg-9">
-                                    <select id="user_time_zone" class="form-control" size="0">
-                                        <option value="Hawaii">(GMT-10:00) Hawaii</option>
-                                        <option value="Alaska">(GMT-09:00) Alaska</option>
-                                        <option value="Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time (US &amp; Canada)</option>
-                                        <option value="Arizona">(GMT-07:00) Arizona</option>
-                                        <option value="Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain Time (US &amp; Canada)</option>
-                                        <option value="Central Time (US &amp; Canada)" selected="selected">(GMT-06:00) Central Time (US &amp; Canada)</option>
-                                        <option value="Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time (US &amp; Canada)</option>
-                                        <option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Username</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="text" value="janeuser">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Password</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="password" value="11111122333">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Confirm password</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="password" value="11111122333">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label"></label>
-                                <div class="col-lg-9">
-                                    <input type="reset" class="btn btn-secondary" value="Cancel">
-                                    <input type="button" class="btn btn-primary" value="Save Changes">
-                                </div>
-                            </div>
-                        </form>
+                        <table class="table">
+                            <thead class="thead-dark">
+                              <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Medicine</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Handle</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+
+                                <% for(var i=0; i < lists.length; i++) { %>
+                                    <tr>
+                                        <th scope="row"><%= medicines[i].id %></th>
+                                        <td><%= lists[i].medicine_name %></td>
+                                        <td><%= lists[i].quantity %></td>
+                                        <td><%= lists[i].price %></td>
+                                        <td>
+                                           <form>
+                                                <input type="submit" class="btn btn-secondary" value="remove">
+                                                <input type="submit" class="btn btn-secondary" value="PLace order">
+                                           </form>
+                                        </td>
+                                      </tr>
+                                <% } %>
+                              
+                              
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -180,7 +127,8 @@
                 <label class="custom-file">
                     <input type="file" id="file" class="custom-file-input">
                     <span class="custom-file-control">Choose file</span>
-                </label>
+                </label><br><br><br>
+                <label><a href="/home/logout" class="btn btn-secondary">Logout</a></label>
             </div>
         </div>
     </div>

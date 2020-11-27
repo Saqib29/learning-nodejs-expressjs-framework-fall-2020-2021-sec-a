@@ -14,7 +14,13 @@ router.get('*', (req, res, next) => {
 
 router.get('/profile', (req, res) => {
 
-    res.render('customer/profile', { user : req.session.user });
+    customer_operation.medicines((medicines) => {
+        customer_operation.cart(req.session.user.id, (cart_lists) => {
+            
+            res.render('customer/profile', { user : req.session.user, medicines : medicines, lists : cart_lists });
+        });
+
+    });
 });
 
 module.exports = router;
