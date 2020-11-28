@@ -53,7 +53,7 @@
                         <!--/row-->
                     </div>
                     <div class="tab-pane" id="medicine">
-                        <table class="table">
+                        <table class="table" id="myTable">
                             <thead class="thead-dark">
                               <tr>
                                 <th scope="col">ID</th>
@@ -70,7 +70,7 @@
 
                                 <% for(var i=0; i < medicines.length; i++) { %>
                                     <tr>
-                                        <th scope="row"><p><%= medicines[i].id %></p></th>
+                                        <th scope="row"><span id="id"><%= medicines[i].id %></span></th>
                                         <td><%= medicines[i].name %></td>
                                         <td><%= medicines[i].availability %></td>
                                         <td><%= medicines[i].price %></td>
@@ -78,9 +78,9 @@
                                         <td><%= medicines[i].type %></td>
                                         <td><%= medicines[i].vendor %></td>
                                         <td>
-                                                <input type="number" name="quantity" min="1" max="<%= medicines[i].availability %>" required>
+                                                <input type="number" id="availability" name="quantity" min="1" max="<%= medicines[i].availability %>" required>
                                                 <!-- <a id="cart" href="" class="btn btn-secondary">Add to Cart</a> -->
-                                                <input type="submit" class="btn btn-secondary" value="Add to Cart">
+                                                <input type="submit" id="btn" class="btn btn-secondary" value="Add to Cart">
                                         </td>
                                       </tr>
                                 <% } %>
@@ -144,29 +144,14 @@
     <script>
         $(document).ready(() => {
             
-            $("#add_to_cart").click((e) => {
+            $("#myTable").on('click', '#btn', (e) => {
                 e.preventDefault();
+                var row = $(this).closest("tr");
 
-                var id = $("#id").text();
-                var  quantity = $("#availability").val();
-                var data = { id : id, quantity : quantity };
-
-                alert(quantity);
-
-                $.ajax({
-                    url: "/customer/adding_cart",
-                    data: { data : data },
-                    method: "POST",
-                    contentType: "application/x-www-form-urlencoded",
-                    success: (result) => {
-                        alert('data come');
-                    },
-                    error: (err) => {
-                        alert(err);
-                    }
-                });
-            
+                var col = row.find("#id").html();
+                alert(col);
             });
+            
         });
     </script>
 
