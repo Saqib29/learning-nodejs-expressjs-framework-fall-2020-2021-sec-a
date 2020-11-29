@@ -63,9 +63,64 @@ router.post('/edit_profile/:id', [
         }
 });
 
-router.post('/adding_cart', (req, res) => {
-    console.log('req.body');
+router.post('/add', (req, res) => {
+    var object = {
+        medicine_id         : req.body.id,
+        medicine_quantity   : req.body.quantity,
+        customer_id         : req.session.user.id,
+        customer_name       : req.session.user.username,
+        customer_number     : req.session.user.contact
+    };
+    customer_operation.get_medicine_ById(object.medicine_id, (result) => {
+        customer_operation.update_medicine({
+            availability: result[0].availability - object.medicine_quantity,
+            id          : object.medicine_id
+        }, (status) => {
+
+            if(status) {
+                var order_data = {
+                    customer_name  : object.customer_name,
+                    customer_number: object.customer_number,
+                    medicine_name  : result[0].name,
+                    quantity       : parseInt(object.medicine_quantity),
+                    price          : result[0].price * object.medicine_quantity,
+                    date           : new Date().toISOString().slice(0, 10)
+                }
+
+               customer_operation.insert_order(order_data, (what) => {
+                   if(what) {
+                       customer_operation.add_to_cart({
+                           medicine_name  : order_data.medicine_name,
+                           quantity       : order_data.quantity,
+                           price          : order_data.price,
+                           customer_id    : object.customer_id
+                       }, (status) => {
+                            res.json({ result : true });
+                       });
+                   } else {
+                       res.json({ result : false });
+                   }
+                // console.log(what);
+               }); 
+
+            } else {
+                res.send("<h1>Something went wrong!</h1>");
+            }
+
+        });
+        
+    });
+    // console.log(result[0].price * req.body.quantity);
+    // console.log(req.body);
     
+});
+
+router.get('/remove/:id', (req, res) => {
+    console.log(req.params.id);
+});
+
+router.get('/placeorder/:id', (req, res) => {
+    console.log(req.params.id);
 });
 
 module.exports = router;

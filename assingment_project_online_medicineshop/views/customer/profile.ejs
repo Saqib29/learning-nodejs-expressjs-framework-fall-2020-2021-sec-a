@@ -6,7 +6,7 @@
     <title><%= user.username %></title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
 
 </head>
 <body>
@@ -70,7 +70,7 @@
 
                                 <% for(var i=0; i < medicines.length; i++) { %>
                                     <tr>
-                                        <th scope="row"><span id="id"><%= medicines[i].id %></span></th>
+                                        <th scope="row" class="nr"><span><%= medicines[i].id %></span></th>
                                         <td><%= medicines[i].name %></td>
                                         <td><%= medicines[i].availability %></td>
                                         <td><%= medicines[i].price %></td>
@@ -80,7 +80,7 @@
                                         <td>
                                                 <input type="number" id="availability" name="quantity" min="1" max="<%= medicines[i].availability %>" required>
                                                 <!-- <a id="cart" href="" class="btn btn-secondary">Add to Cart</a> -->
-                                                <input type="submit" id="btn" class="btn btn-secondary" value="Add to Cart">
+                                                <input type="button" class="btn btn-secondary addtocart" value="Add to Cart">
                                         </td>
                                       </tr>
                                 <% } %>
@@ -89,6 +89,7 @@
                             </tbody>
                         </table>
                     </div>
+
                     <div class="tab-pane" id="cart">
                         <table class="table">
                             <thead class="thead-dark">
@@ -104,15 +105,13 @@
 
                                 <% for(var i=0; i < lists.length; i++) { %>
                                     <tr>
-                                        <th scope="row"><%= medicines[i].id %></th>
+                                        <th scope="row"><%= lists[i].id %></th>
                                         <td><%= lists[i].medicine_name %></td>
                                         <td><%= lists[i].quantity %></td>
                                         <td><%= lists[i].price %></td>
                                         <td>
-                                           <form>
-                                                <input type="submit" class="btn btn-secondary" value="remove">
-                                                <input type="submit" class="btn btn-secondary" value="PLace order">
-                                           </form>
+                                           <a href="/customer/remove/<%= lists[i].id %>" class="btn btn-secondary">remove</a>
+                                           <a href="/customer/placeorder/<%= lists[i].id %>" class="btn btn-secondary">place order</a>
                                         </td>
                                       </tr>
                                 <% } %>
@@ -139,21 +138,46 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script>
-        $(document).ready(() => {
-            
-            $("#myTable").on('click', '#btn', (e) => {
-                e.preventDefault();
-                var row = $(this).closest("tr");
+                        
+            $(document).ready(function() {
+                $(".addtocart").click(function(e) {
+                    e.preventDefault();
 
-                var col = row.find("#id").html();
-                alert(col);
+                    var $row = $(this).closest("tr");
+                    var $text = $row.find(".nr").text();
+                    var $availability = $row.find("#availability").val();
+
+                    // var data = { quantity : $availability, id : $text };
+
+                    // alert($availability, $text);
+
+                    $.ajax({
+                        url: "/customer/add",
+                        data: { quantity : $availability, id : $text },
+                        method: "POST",
+                        ContentType: "application/x-www-form-urlencoded",
+                        success: function(result){
+                            if(result){
+                                alert("Added to cart");
+                            } else {
+                                alert("Something went wrong!");
+                            }
+                        },
+                        error: function(err){
+                            alert(err);
+                        }
+                    });
+
+                    
+                
+                });
             });
-            
-        });
+    
     </script>
+   
 
 </body>
 </html>
