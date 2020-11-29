@@ -58,10 +58,17 @@ module.exports = {
         });
     },
     add_to_cart: (data, callback) => {
-        var sql = `INSERT INTO cart (medicine_name, quantity, price, customer_id) VALUES (?, ?, ?, ?)`;
-        var values = [data.medicine_name, data.quantity, data.price, data.customer_id];
+        var sql = `INSERT INTO cart (medicine_id, medicine_name, quantity, price, customer_id) VALUES (?, ?, ?, ?, ?)`;
+        var values = [data.medicine_id, data.medicine_name, data.quantity, data.price, data.customer_id];
 
         db.execute(sql, values, (status) => {
+            callback(status);
+        });
+    },
+    delete_from_cart: (id, callback) => {
+        var sql = `DELETE FROM cart WHERE id = ?`;
+
+        db.execute(sql, [id], (status) => {
             callback(status);
         });
     }

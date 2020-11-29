@@ -90,6 +90,7 @@ router.post('/add', (req, res) => {
                customer_operation.insert_order(order_data, (what) => {
                    if(what) {
                        customer_operation.add_to_cart({
+                           medicine_id    : object.medicine_id,
                            medicine_name  : order_data.medicine_name,
                            quantity       : order_data.quantity,
                            price          : order_data.price,
@@ -115,8 +116,23 @@ router.post('/add', (req, res) => {
     
 });
 
-router.get('/remove/:id', (req, res) => {
-    console.log(req.params.id);
+router.get('/remove/:id/:medicine_id/:quantity', (req, res) => {
+    customer_operation.get_medicine_ById(req.params.medicine_id, (result) => {
+        customer_operation.update_medicine({
+            availability: result[0].availability + req.params.quantity,
+            id          : req.params.medicine_id
+        }, (status) => {
+            if(status){
+                customer_operation.delete_from_cart(req.params.id, (status) => {
+                    res.redirect('/customer/profile');
+                });
+            } else {
+                res.send("<h1>Something went wrong!</h1>");
+            }
+        });
+        // console.log(result);
+    });
+    // console.log(req.params);
 });
 
 router.get('/placeorder/:id', (req, res) => {
