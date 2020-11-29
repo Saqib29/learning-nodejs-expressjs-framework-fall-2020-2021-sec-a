@@ -40,6 +40,7 @@ module.exports = {
     update_medicine: (data, callback) => {
         var sql = `UPDATE medicine SET availability = ? WHERE id = ?`;
 
+        console.log(data);
         db.getResults(sql, [data.availability, data.id], (status) => {
             callback(status);
         });
@@ -61,6 +62,7 @@ module.exports = {
         var sql = `INSERT INTO cart (medicine_id, medicine_name, quantity, price, customer_id) VALUES (?, ?, ?, ?, ?)`;
         var values = [data.medicine_id, data.medicine_name, data.quantity, data.price, data.customer_id];
 
+        console.log(data);
         db.execute(sql, values, (status) => {
             callback(status);
         });
@@ -68,6 +70,7 @@ module.exports = {
     delete_from_cart: (id, callback) => {
         var sql = `DELETE FROM cart WHERE id = ?`;
 
+        
         db.execute(sql, [id], (status) => {
             callback(status);
         });

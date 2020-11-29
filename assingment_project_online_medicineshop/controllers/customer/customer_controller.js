@@ -71,68 +71,39 @@ router.post('/add', (req, res) => {
         customer_name       : req.session.user.username,
         customer_number     : req.session.user.contact
     };
-    customer_operation.get_medicine_ById(object.medicine_id, (result) => {
+    customer_operation.get_medicine_ById(req.body.id, (result) => {
         customer_operation.update_medicine({
             availability: result[0].availability - object.medicine_quantity,
             id          : object.medicine_id
         }, (status) => {
-
             if(status) {
-                var order_data = {
-                    customer_name  : object.customer_name,
-                    customer_number: object.customer_number,
-                    medicine_name  : result[0].name,
-                    quantity       : parseInt(object.medicine_quantity),
-                    price          : result[0].price * object.medicine_quantity,
-                    date           : new Date().toISOString().slice(0, 10)
-                }
-
-               customer_operation.insert_order(order_data, (what) => {
-                   if(what) {
-                       customer_operation.add_to_cart({
-                           medicine_id    : object.medicine_id,
-                           medicine_name  : order_data.medicine_name,
-                           quantity       : order_data.quantity,
-                           price          : order_data.price,
-                           customer_id    : object.customer_id
-                       }, (status) => {
-                            res.json({ result : true });
-                       });
-                   } else {
-                       res.json({ result : false });
-                   }
-                // console.log(what);
-               }); 
-
+                customer_operation.add_to_cart({
+                    medicine_id     : object.medicine_id,
+                    medicine_name   : result[0].name,
+                    quantity        : object.medicine_quantity,
+                    price           : result[0].price * object.medicine_quantity,
+                    customer_id     : object.customer_id
+                }, (status) => {
+                    if(status) {
+                        res.json({ result : true });
+                    } else {
+                        res.json({ result : false });
+                    }
+                    // console.log(status);
+                });
+                console.log(result);
             } else {
-                res.send("<h1>Something went wrong!</h1>");
+                res.json({ result : false });
             }
-
         });
-        
     });
-    // console.log(result[0].price * req.body.quantity);
-    // console.log(req.body);
     
+    // console.log(req.body);
 });
 
 router.get('/remove/:id/:medicine_id/:quantity', (req, res) => {
-    customer_operation.get_medicine_ById(req.params.medicine_id, (result) => {
-        customer_operation.update_medicine({
-            availability: result[0].availability + req.params.quantity,
-            id          : req.params.medicine_id
-        }, (status) => {
-            if(status){
-                customer_operation.delete_from_cart(req.params.id, (status) => {
-                    res.redirect('/customer/profile');
-                });
-            } else {
-                res.send("<h1>Something went wrong!</h1>");
-            }
-        });
-        // console.log(result);
-    });
-    // console.log(req.params);
+    
+    console.log(req.params);
 });
 
 router.get('/placeorder/:id', (req, res) => {
