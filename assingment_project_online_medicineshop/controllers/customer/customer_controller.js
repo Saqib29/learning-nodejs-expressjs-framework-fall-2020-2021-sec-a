@@ -72,38 +72,61 @@ router.post('/add', (req, res) => {
         customer_number     : req.session.user.contact
     };
     customer_operation.get_medicine_ById(req.body.id, (result) => {
-        customer_operation.update_medicine({
-            availability: result[0].availability - object.medicine_quantity,
-            id          : object.medicine_id
-        }, (status) => {
-            if(status) {
-                customer_operation.add_to_cart({
-                    medicine_id     : object.medicine_id,
-                    medicine_name   : result[0].name,
-                    quantity        : object.medicine_quantity,
-                    price           : result[0].price * object.medicine_quantity,
-                    customer_id     : object.customer_id
-                }, (status) => {
-                    if(status) {
-                        res.json({ result : true });
-                    } else {
-                        res.json({ result : false });
-                    }
-                    // console.log(status);
-                });
-                console.log(result);
-            } else {
-                res.json({ result : false });
-            }
-        });
+        if( result[0].availability >= object.medicine_quantity) {
+            customer_operation.update_medicine({
+                availability: parseInt(result[0].availability) - parseInt(object.medicine_quantity),
+                id          : object.medicine_id
+            }, (status) => {
+                if(status) {
+                    customer_operation.add_to_cart({
+                        medicine_id     : object.medicine_id,
+                        medicine_name   : result[0].name,
+                        quantity        : object.medicine_quantity,
+                        price           : result[0].price * object.medicine_quantity,
+                        customer_id     : object.customer_id
+                    }, (status) => {
+                        if(status) {
+                            res.json({ outcome : true });
+                        } else {
+                            res.json({ outcome : false });
+                        }
+                        // console.log(status);
+                    });
+                    // console.log(result);
+                } else {
+                    res.json({ outcome : false });
+                }
+            });
+        } else {
+            res.json({ outcome : false });
+        }
     });
     
     // console.log(req.body);
 });
 
 router.get('/remove/:id/:medicine_id/:quantity', (req, res) => {
-    
-    console.log(req.params);
+    customer_operation.get_medicine_ById(req.params.medicine_id, (result) => {
+        customer_operation.update_medicine({
+            availability: parseInt(result[0].availability) + parseInt(req.params.quantity),
+            id          : req.params.medicine_id
+        }, (status) => {
+            if(status) {
+                customer_operation.delete_from_cart(req.params.id, (status) => {
+                    if(status){
+                        res.redirect('/customer/profile');
+                    } else {
+                        res.json({ outcome : false });
+                    }
+                });
+            } else {
+                res.json({ outcome : false });
+            }
+        });
+        // console.log(result[0].availability);
+        // console.log();
+    });
+    // console.log(req.params);
 });
 
 router.get('/placeorder/:id', (req, res) => {
