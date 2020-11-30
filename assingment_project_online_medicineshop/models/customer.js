@@ -46,14 +46,13 @@ module.exports = {
         });
     },
     insert_order: (object, callback) => {
-        var sql = `INSERT INTO orders (customer_name, customer_number, madicine_name, quantity, price, date) VALUES (?, ?, ?, ?, ?, ?)`;
+        var sql = `INSERT INTO orders (customer_name, customer_number, medicine_name, quantity, price, date) VALUES (?, ?, ?, ?, ?, ?)`;
         var data = [object.customer_name, object.customer_number, object.medicine_name, object.quantity, object.price, object.date];
 
         // var sql = `INSERT INTO orders (customer_name, customer_number, medicine_name, quantity, price, date) VALUES ('${object.customer_name}', '${object.customer_number}', '${object.medicine_name}', '${object.quantity}', '${object.price}', '${object.date.toString()}')`;
 
         // console.log(object);
         db.execute(sql, data, (status) => {
-            
             callback(status);
 
         });

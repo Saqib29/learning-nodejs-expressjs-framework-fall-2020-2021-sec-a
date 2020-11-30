@@ -209,7 +209,7 @@
                                         <td><%= orders[i].customer_number %></td>
                                         <td><%= orders[i].date %></td>
                                         <td>
-                                            <a class="btn btn-secondary" href="">Confirm</a>
+                                            <a class="btn btn-secondary" href="/admin/confirm/<%= orders[i].id %>">Confirm</a>
                                         </td>
                                       </tr>
                                 <% } %>

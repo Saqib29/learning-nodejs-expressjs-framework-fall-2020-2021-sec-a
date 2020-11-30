@@ -31,7 +31,7 @@
                         <h5 class="mb-3"><%= user.user_roll.toUpperCase() %></h5>
                         <div class="row">
                             <div class="col-md-6">
-                                <h3><%= user.username %></h3><br>
+                                <h3 style="color: orange;"><%= user.username %></h3><br>
                                 <h6>Contact:</h6>
                                 <p>
                                      <%= user.contact %>
@@ -127,7 +127,7 @@
                 <h6 class="mt-2">Upload a different photo</h6>
                 <label class="custom-file">
                     <input type="file" id="file" class="custom-file-input">
-                    <span class="custom-file-control">Choose file</span>
+                    <span class="custom-file-control btn btn-primary">Choose file</span>
                 </label><br><br><br>
                 <label><a href="/home/logout" class="btn btn-secondary">Logout</a></label>
             </div>

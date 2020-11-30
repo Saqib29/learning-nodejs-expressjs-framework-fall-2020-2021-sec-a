@@ -145,11 +145,13 @@ router.get('/placeorder/:id', (req, res) => {
                         if(status){
                             res.redirect('/customer/profile');
                         }else {
-                            res.send("<h1>Something went wrong!</h1>");
+                            
+                            res.send("<h1>Something went wrong! delete cart</h1>");
                         }
                     });
                 } else {
-                    res.send("<h1>Something went wrong!</h1>");
+                    // console.log(user);
+                    res.send("<h1>Something went wrong! insert order</h1>");
                 }
             });
             // console.log(user[0]);

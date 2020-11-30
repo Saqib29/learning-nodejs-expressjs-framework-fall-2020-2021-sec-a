@@ -56,6 +56,22 @@ module.exports = {
             callback(results);
         });
     },
+    insert_into_purchase_list: (data, callback) => {
+        var sql = `INSERT INTO purchase_list (customer_name, customer_number, medicine_name, quantity, price, date) VALUES (?, ?, ?, ?, ?, ?)`;
+        var values = [data.customer_name, data.customer_number, data.medicine_name, data.quantity, data.price, data.date];
+
+        db.execute(sql, values, (status) => {
+            callback(status);
+        });
+    },
+    delete_from_orders_By_Id: (id, callback) => {
+        var sql = `DELETE FROM orders WHERE id = ?`;
+
+        db.execute(sql, [id], (status) => {
+            // console.log('not deleted');
+            callback(status);
+        });
+    },
     get_orders: (callback) => {
         var sql = `SELECT * FROM orders`;
         db.getResults(sql, null, (orders) => {
@@ -76,6 +92,13 @@ module.exports = {
 
         db.execute(sql, [id], (status) => {
             callback(status);
+        });
+    },
+    get_order_ById: (id, callback) => {
+        var sql = `SELECT * FROM orders WHERE id = ?`;
+
+        db.getResults(sql, [id], (result) => {
+            callback(result);
         });
     }
 }

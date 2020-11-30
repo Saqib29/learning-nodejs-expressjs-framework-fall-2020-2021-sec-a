@@ -1,5 +1,6 @@
 const express                                         = require('express');
 const { check, validationResult }                     = require('express-validator');
+const { delete_customer } = require('../../models/admin');
 const admin_operation                                 = require.main.require('./models/admin');
 
 
@@ -134,5 +135,31 @@ router.get('/delete_medicine/:id', (req, res) => {
     // console.log(req.params.id);
 });
 
+router.get('/confirm/:id', (req, res) => {
+    admin_operation.get_order_ById(req.params.id, (result) => {
+        admin_operation.insert_into_purchase_list({
+            customer_name   : result[0].customer_name,
+            customer_number : result[0].customer_number,
+            medicine_name   : result[0].medicine_name,
+            quantity        : result[0].quantity,
+            price           : result[0].price,
+            date            : result[0].date
+        }, (status) => {
+            if(status){
+                admin_operation.delete_from_orders_By_Id(req.params.id, (status) => {
+                    if(status){
+                        res.redirect("/admin/profile");
+                    } else {
+                        res.send("<h1>Something went wrong!</h1>");
+                    }
+                });
+            } else {
+                console.log(status);
+            }
+        });
+        console.log(result);
+    });
+    // console.log(req.params.id);
+});
 
 module.exports = router;
