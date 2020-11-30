@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2020 at 07:01 PM
+-- Generation Time: Nov 30, 2020 at 04:06 PM
 -- Server version: 10.3.15-MariaDB
 -- PHP Version: 7.3.6
 
@@ -30,6 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `cart` (
   `id` int(50) NOT NULL,
+  `medicine_id` int(50) NOT NULL,
   `medicine_name` varchar(255) NOT NULL,
   `quantity` int(50) NOT NULL,
   `price` int(50) NOT NULL,
@@ -40,8 +41,10 @@ CREATE TABLE `cart` (
 -- Dumping data for table `cart`
 --
 
-INSERT INTO `cart` (`id`, `medicine_name`, `quantity`, `price`, `customer_id`) VALUES
-(1, 'Napa Extra', 2, 160, 2);
+INSERT INTO `cart` (`id`, `medicine_id`, `medicine_name`, `quantity`, `price`, `customer_id`) VALUES
+(5, 3, 'Napa extra', 2, 140, 2),
+(6, 4, 'Lubilux', 4, 240, 2),
+(10, 3, 'Napa extra', 12, 840, 2);
 
 -- --------------------------------------------------------
 
@@ -64,10 +67,10 @@ CREATE TABLE `medicine` (
 --
 
 INSERT INTO `medicine` (`id`, `name`, `availability`, `price`, `category`, `type`, `vendor`) VALUES
-(1, 'Napa extend', 10, 80, 'paracetanol', 'solid', 'Beximco Pharma'),
-(2, 'Napa extra', 12, 70, 'paracetanol', 'solid', 'Beximco Pharma'),
-(3, 'Napa extra', 12, 70, 'paracetanol', 'solid', 'ACI'),
-(4, 'Lubilux', 25, 60, 'Arsenal', 'solid', 'Beximco Pharma');
+(1, 'Napa extend', 8, 80, 'paracetanol', 'solid', 'Beximco Pharma'),
+(2, 'Napa extra', 1000, 70, 'paracetanol', 'solid', 'Beximco Pharma'),
+(3, 'Napa extra', 202, 70, 'paracetanol', 'solid', 'ACI'),
+(4, 'Lubilux', 414000, 60, 'Arsenal', 'solid', 'Beximco Pharma');
 
 -- --------------------------------------------------------
 
@@ -77,13 +80,23 @@ INSERT INTO `medicine` (`id`, `name`, `availability`, `price`, `category`, `type
 
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
-  `customer_name` int(11) NOT NULL,
-  `customer_number` int(11) NOT NULL,
-  `madicine_name` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `price` int(11) NOT NULL,
+  `customer_name` varchar(255) NOT NULL,
+  `customer_number` varchar(255) NOT NULL,
+  `medicine_name` varchar(255) NOT NULL,
+  `quantity` int(50) NOT NULL,
+  `price` int(50) NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `customer_name`, `customer_number`, `medicine_name`, `quantity`, `price`, `date`) VALUES
+(2, 'saqib', '+8801821500050', 'Napa Extra', 2, 160, '2020-11-28'),
+(3, 'saqib', '+8801821500050', 'Napa Extra', 2, 160, '2020-11-28'),
+(4, 'saqib', '+880121500080', 'Lubilux', 1, 60, '2020-11-29'),
+(10, 'saqib', '+880121500080', 'Napa extend', 2, 160, '2020-11-30');
 
 -- --------------------------------------------------------
 
@@ -106,7 +119,11 @@ CREATE TABLE `purchase_list` (
 --
 
 INSERT INTO `purchase_list` (`id`, `customer_name`, `customer_number`, `medicine_name`, `quantity`, `price`, `date`) VALUES
-(1, 'saqib', 45575114, 'Napa Extend', 1, 80, '2020-11-27');
+(1, 'saqib', 45575114, 'Napa Extend', 1, 80, '2020-11-27'),
+(2, 'saqib', 2147483647, 'Napa extend', 2, 160, '2020-11-30'),
+(3, 'saqib', 2147483647, 'Lubilux', 12, 720, '2020-11-30'),
+(4, 'saqib', 2147483647, 'Napa extend', 2, 160, '2020-11-30'),
+(5, 'saqib', 2147483647, 'Lubilux', 20, 1200, '2020-11-30');
 
 -- --------------------------------------------------------
 
@@ -174,7 +191,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `medicine`
@@ -186,13 +203,13 @@ ALTER TABLE `medicine`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `purchase_list`
 --
 ALTER TABLE `purchase_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user`
