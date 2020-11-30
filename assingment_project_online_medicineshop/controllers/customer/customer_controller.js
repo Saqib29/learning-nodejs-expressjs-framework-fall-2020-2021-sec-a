@@ -130,7 +130,33 @@ router.get('/remove/:id/:medicine_id/:quantity', (req, res) => {
 });
 
 router.get('/placeorder/:id', (req, res) => {
-    console.log(req.params.id);
+    customer_operation.get_from_cart(req.params.id, (result) => {
+        customer_operation.getById(result[0].customer_id, (user) => {
+            customer_operation.insert_order({
+                customer_name   : user[0].username,
+                customer_number : user[0].contact,
+                medicine_name   : result[0].medicine_name,
+                quantity        : result[0].quantity,
+                price           : result[0].price,
+                date            : new Date().toISOString().slice(0, 10)
+            }, (status) => {
+                if(status) {
+                    customer_operation.delete_from_cart(result[0].id, (status) => {
+                        if(status){
+                            res.redirect('/customer/profile');
+                        }else {
+                            res.send("<h1>Something went wrong!</h1>");
+                        }
+                    });
+                } else {
+                    res.send("<h1>Something went wrong!</h1>");
+                }
+            });
+            // console.log(user[0]);
+            // console.log(result[0]);
+        });
+    });
+    // console.log(req.params.id);
 });
 
 module.exports = router;

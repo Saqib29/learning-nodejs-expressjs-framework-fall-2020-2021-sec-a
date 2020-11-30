@@ -51,7 +51,7 @@ module.exports = {
 
         // var sql = `INSERT INTO orders (customer_name, customer_number, medicine_name, quantity, price, date) VALUES ('${object.customer_name}', '${object.customer_number}', '${object.medicine_name}', '${object.quantity}', '${object.price}', '${object.date.toString()}')`;
 
-        console.log(object);
+        // console.log(object);
         db.execute(sql, data, (status) => {
             
             callback(status);
@@ -73,6 +73,13 @@ module.exports = {
         
         db.execute(sql, [id], (status) => {
             callback(status);
+        });
+    },
+    get_from_cart: (id, callback) => {
+        var sql = `SELECT * FROM cart WHERE id = ?`;
+
+        db.getResults(sql, id, (result) => {
+            callback(result);
         });
     }
 }
