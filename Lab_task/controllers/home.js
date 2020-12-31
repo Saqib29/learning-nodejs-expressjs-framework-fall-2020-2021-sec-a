@@ -18,4 +18,11 @@ router.get('/employee', (req, res) => {
     res.render('home/employeeView', req.session.user);
 });
 
+router.get('/get_api', (req, res) => {
+	res.json({
+		'Name' : 'Saqib Aminul Islam',
+		'Id'   : '17-34879-2'
+	});
+})
+
 module.exports = router;
